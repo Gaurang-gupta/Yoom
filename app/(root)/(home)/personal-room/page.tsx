@@ -15,14 +15,13 @@ const Table = ({title, description}: {title: string, description: string}) => (
 
 const PersonalRoom = () => {
   const { user } = useUser();
-  if(!user) return;
-  const meetingId = user?.id;
-  const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${meetingId}?personal=true`
   const { toast } = useToast();
-  const client = useStreamVideoClient();
-  const { call } = useGetCallById(meetingId);
   const router = useRouter();
-
+  const client = useStreamVideoClient();
+  const meetingId = user ? user?.id: "";
+  const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${meetingId}?personal=true`
+  const { call } = useGetCallById(meetingId);
+  
   const startRoom = async() => {
     if(!client || !user) return;
     
